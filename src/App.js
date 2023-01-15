@@ -65,7 +65,7 @@ function App() {
               })}
               type="text"
               placeholder="Post a Message"
-              className="input input-bordered mr-2 rounded-3xl sm:w-[400px]"
+              className="input input-bordered mr-2 rounded-3xl w-[300px] sm:w-[400px]"
             />
             <button className="btn btn-primary absolute right-2 rounded-3xl" disabled={isDataLoading}>
               Send
