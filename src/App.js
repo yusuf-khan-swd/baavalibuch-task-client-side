@@ -1,5 +1,5 @@
 import axios from "axios";
-import { get, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import "./App.css";
 
