@@ -21,7 +21,7 @@ function App() {
 
   const handlePostData = async (data) => {
     setIsDataLoading(true);
-    const postRes = await fetch("http://localhost:5000/posts", {
+    const postRes = await fetch("https://baavalibuch-task-server-side.vercel.app/posts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -41,9 +41,9 @@ function App() {
 
   const handleConnectionCount = async () => {
     setIsDataLoading(true);
-    const prevCount = await (await axios.get("http://localhost:5000/connections")).data[0].count;
+    const prevCount = await (await axios.get("https://baavalibuch-task-server-side.vercel.app/connections")).data[0].count;
     const currentCount = prevCount + 1;
-    const data = await axios.put("http://localhost:5000/connections", {
+    const data = await axios.put("https://baavalibuch-task-server-side.vercel.app/connections", {
       count: currentCount
     });
     setIsDataLoading(false);
