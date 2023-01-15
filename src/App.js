@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import { get, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import "./App.css";
 
@@ -24,11 +25,26 @@ function App() {
       body: JSON.stringify(data),
     });
 
+    handleConnectionCount();
+
     const postData = await postRes.json();
 
     if (postData.acknowledged) {
       toast.success("You have posted successfully!");
     }
+  };
+
+  const handleConnectionCount = async () => {
+    const prevCount = await (await axios.get("http://localhost:5000/connections")).data[0].count;
+    const currentCount = prevCount + 1;
+    const data = await axios.put("http://localhost:5000/connections", {
+      count: currentCount
+    });
+
+    if (data.data.modifiedCount) {
+      console.log(currentCount);
+    }
+
   };
 
   return (
