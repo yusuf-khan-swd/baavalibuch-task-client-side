@@ -1,9 +1,12 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import "./App.css";
 
 function App() {
+  const [isDataLoading, setIsDataLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,7 @@ function App() {
   };
 
   const handlePostData = async (data) => {
+    setIsDataLoading(true);
     const postRes = await fetch("http://localhost:5000/posts", {
       method: "POST",
       headers: {
@@ -26,6 +30,7 @@ function App() {
     });
 
     handleConnectionCount();
+    setIsDataLoading(false);
 
     const postData = await postRes.json();
 
@@ -35,11 +40,13 @@ function App() {
   };
 
   const handleConnectionCount = async () => {
+    setIsDataLoading(true);
     const prevCount = await (await axios.get("http://localhost:5000/connections")).data[0].count;
     const currentCount = prevCount + 1;
     const data = await axios.put("http://localhost:5000/connections", {
       count: currentCount
     });
+    setIsDataLoading(false);
 
     if (data.data.modifiedCount) {
       console.log(currentCount);
@@ -60,7 +67,7 @@ function App() {
               placeholder="Post a Message"
               className="input input-bordered mr-2 rounded-3xl sm:w-[400px]"
             />
-            <button className="btn btn-primary absolute right-2 rounded-3xl">
+            <button className="btn btn-primary absolute right-2 rounded-3xl" disabled={isDataLoading}>
               Send
             </button>
           </div>
